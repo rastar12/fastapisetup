@@ -1,4 +1,5 @@
 from fastapi import FastAPI,Path
+from typing import Optional
 
 app= FastAPI()
 
@@ -15,3 +16,11 @@ def index():
 def get_student(student_id:int=Path(description="The ID of the student you want to view",gt=0,lt=3)):
     return students[student_id] 
 
+
+#query parameters
+@app.get("/get-by-name")
+def get_student_by_name(name: Optional[str] =None, test: int=0):
+    for student in students.values():
+        if student["name"]==name:
+            return student
+    return {"message":"Student not found"}
