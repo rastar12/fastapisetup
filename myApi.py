@@ -13,6 +13,11 @@ class Student(BaseModel):
     age: int
     course: str
 
+class UpdateStudent(BaseModel):
+    name:Optional[str]=None
+    age: Optional[int]=None
+
+
 @app.get("/")
 def index():
     return{"message":"Hello world"}
@@ -46,5 +51,15 @@ def get_student_by_id(student_id:int, test: int=0):  # test is a query parameter
 def create_student(student_id: int, student: Student):
     if student_id in students:
         return {"message":"Student already exists"}
-    students[student_id]=student
+    students[student_id]=student.dict() # convert the student object to a dictionary
+    return students[student_id]
+
+
+#put method for updatting a student
+
+@app.put("/update-student/{student_id}")
+def update_student(student_id:int, student: UpdateStudent):
+    if student_id not in students:
+        return {"message":"Student does not exist"}
+    students[student_id].update(student.dict(exclude_unset=True)) # update the student with the new data, exclude_unset=True will only update the fields that are provided in the request body 
     return students[student_id]
