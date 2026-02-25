@@ -63,3 +63,13 @@ def update_student(student_id:int, student: UpdateStudent):
         return {"message":"Student does not exist"}
     students[student_id].update(student.dict(exclude_unset=True)) # update the student with the new data, exclude_unset=True will only update the fields that are provided in the request body 
     return students[student_id]
+
+
+# delete method for deleting a student
+
+@app.delete("/delete-student/{student_id}")
+def delete_student(student_id:int):
+    if student_id not in students:
+        return{"message":"Student does not exist"}
+    del students[student_id]
+    return{"message":"Student deleted successfully"}
