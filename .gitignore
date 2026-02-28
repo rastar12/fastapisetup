@@ -1,0 +1,27 @@
+# 1. Security & Secrets (CRITICAL)
+# Never push your environment variables to GitHub!
+.env
+.env.*
+
+# 2. Virtual Environments (MASSIVE FOLDERS)
+# This ignores the folder we just created. GitHub only needs your requirements.txt
+venv/
+env/
+.venv/
+
+# 3. Local Databases
+# You don't want to commit your actual SQLite database file containing user data
+*.db
+*.sqlite3
+blog.db
+
+# 4. Python Auto-Generated Files
+# Python creates these automatically to run code faster; they clutter your repo
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 5. OS Generated Files
+# Files created by Windows or Mac automatically
+.DS_Store
+Thumbs.db
